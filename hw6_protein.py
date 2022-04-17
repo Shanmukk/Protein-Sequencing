@@ -4,6 +4,7 @@ Name:
 Roll Number:
 """
 
+from dataclasses import replace
 import hw6_protein_tests as test
 
 project = "Protein" # don't edit this
@@ -49,9 +50,15 @@ Parameters: str
 Returns: dict mapping strs to strs
 '''
 def makeCodonDictionary(filename):
+    d1 = {}
     import json
-    
-    return
+    d = open(filename, "r")
+    data = json.load(d)
+    d = dict((x, k) for k, v in data.items() for x in v) 
+    for key,value in d.items():
+        s = key.replace("T","U")
+        d1[s] = value
+    return d1
 
 
 '''
@@ -61,7 +68,15 @@ Parameters: list of strs ; dict mapping strs to strs
 Returns: list of strs
 '''
 def generateProtein(codons, codonD):
-    return
+    lst = []
+    for i in range(len(codons)):
+        if i == 0:
+            lst.append('Start')
+        elif i == len(codons):
+            lst.append('Stop')
+        else:
+            lst.append(codonD[codons[i]])
+    return lst
 
 
 '''
