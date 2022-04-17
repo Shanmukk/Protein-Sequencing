@@ -30,7 +30,16 @@ Parameters: str ; int
 Returns: list of strs
 '''
 def dnaToRna(dna, startIndex):
-    return
+    lst = []
+    k = ['UAA', 'UAG', 'UGA']
+    i = startIndex
+    d = dna.replace("T", "U")
+    while i < len(d):
+        lst.append(d[i:i+3])
+        if d[i:i+3] in k:
+            break
+        i += 3
+    return lst
 
 
 '''
