@@ -50,6 +50,7 @@ Returns: dict mapping strs to strs
 '''
 def makeCodonDictionary(filename):
     import json
+    
     return
 
 
