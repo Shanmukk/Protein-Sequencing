@@ -4,6 +4,7 @@ Name:
 Roll Number:
 """
 
+from dataclasses import replace
 import hw6_protein_tests as test
 
 project = "Protein" # don't edit this
@@ -17,7 +18,10 @@ Parameters: str
 Returns: str
 '''
 def readFile(filename):
-    return
+    g = open(filename, "r")
+    g = g.read()
+    line = g.replace('\n',"")
+    return line
 
 
 '''
@@ -27,7 +31,16 @@ Parameters: str ; int
 Returns: list of strs
 '''
 def dnaToRna(dna, startIndex):
-    return
+    lst = []
+    k = ['UAA', 'UAG', 'UGA']
+    i = startIndex
+    d = dna.replace("T", "U")
+    while i < len(d):
+        lst.append(d[i:i+3])
+        if d[i:i+3] in k:
+            break
+        i += 3
+    return lst
 
 
 '''
@@ -37,8 +50,15 @@ Parameters: str
 Returns: dict mapping strs to strs
 '''
 def makeCodonDictionary(filename):
+    d1 = {}
     import json
-    return
+    d = open(filename, "r")
+    data = json.load(d)
+    d = dict((x, k) for k, v in data.items() for x in v) 
+    for key,value in d.items():
+        s = key.replace("T","U")
+        d1[s] = value
+    return d1
 
 
 '''
@@ -48,7 +68,13 @@ Parameters: list of strs ; dict mapping strs to strs
 Returns: list of strs
 '''
 def generateProtein(codons, codonD):
-    return
+    lst = []
+    for i in range(len(codons)):
+        if i == 0:
+            lst.append('Start')
+        else:
+            lst.append(codonD[codons[i]])
+    return lst
 
 
 '''
@@ -58,7 +84,20 @@ Parameters: str ; str
 Returns: 2D list of strs
 '''
 def synthesizeProteins(dnaFilename, codonFilename):
-    return
+    count = 0
+    i = 0
+    lst = []
+    dna = readFile(dnaFilename)
+    while i < len(dna):
+        if dna[i:i+3] == 'ATG':
+            rna = dnaToRna(dna, i)
+            protein = generateProtein(rna, makeCodonDictionary(codonFilename))
+            lst.append(protein)
+            i += 3*len(rna)
+        else:
+            i += 1
+            count += 1
+    return lst
 
 
 def runWeek1():
