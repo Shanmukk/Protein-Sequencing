@@ -328,5 +328,5 @@ def testMakeEdgeList():
 def week3Tests():
     testMakeAminoAcidLabels()
     testSetupChartData()
-    testCreateChart()
+    #testCreateChart()
     testMakeEdgeList()
