@@ -72,8 +72,6 @@ def generateProtein(codons, codonD):
     for i in range(len(codons)):
         if i == 0:
             lst.append('Start')
-        elif i == len(codons):
-            lst.append('Stop')
         else:
             lst.append(codonD[codons[i]])
     return lst
@@ -86,7 +84,20 @@ Parameters: str ; str
 Returns: 2D list of strs
 '''
 def synthesizeProteins(dnaFilename, codonFilename):
-    return
+    count = 0
+    i = 0
+    lst = []
+    dna = readFile(dnaFilename)
+    while i < len(dna):
+        if dna[i:i+3] == 'ATG':
+            rna = dnaToRna(dna, i)
+            protein = generateProtein(rna, makeCodonDictionary(codonFilename))
+            lst.append(protein)
+            i += 3*len(rna)
+        else:
+            i += 1
+            count += 1
+    return lst
 
 
 def runWeek1():
