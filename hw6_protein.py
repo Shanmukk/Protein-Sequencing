@@ -258,7 +258,7 @@ def createChart(xLabels, freqList1, label1, freqList2, label2, edgeList):
     w = 0.35
     plt.bar(xLabels, freqList1, width=-w,  align='edge',label = label1, edgecolor = edgeList)
     plt.bar(xLabels, freqList2, width= w,  align='edge',label = label2, edgecolor = edgeList)
-    #plt.xticks(rotation="vertical")
+    plt.xticks(rotation="vertical")
     plt.legend()
     plt.show()
     return
@@ -290,6 +290,16 @@ Parameters: no parameters
 Returns: None
 '''
 def runFullProgram():
+    pro1 = synthesizeProteins("data/human_p53.txt", "data/codon_table.json")
+    pro2 = synthesizeProteins("data/elephant_p53.txt", "data/codon_table.json")
+    common = commonProteins(pro1, pro2)
+    diff = findAminoAcidDifferences(pro1, pro2, 0.005)
+    display = displayTextResults(common, diff)
+    labels = makeAminoAcidLabels(pro1,pro2)
+    f1 = setupChartData(labels, pro1)
+    f2 = setupChartData(labels, pro2)
+    edges = makeEdgeList(labels, diff)
+    createChart(labels, f1, "Human", f2, "Elephant", edgeList=edges)
     return
 
 
