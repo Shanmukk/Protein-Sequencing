@@ -255,6 +255,12 @@ Returns: None
 '''
 def createChart(xLabels, freqList1, label1, freqList2, label2, edgeList=None):
     import matplotlib.pyplot as plt
+    w = 0.35
+    plt.bar(xLabels, freqList1, width=-w,  align='edge',label = label1)
+    plt.bar(xLabels, freqList2, width= w,  align='edge',label = label2)
+    plt.xticks(rotation="vertical")
+    plt.legend()
+    plt.show()
     return
 
 
