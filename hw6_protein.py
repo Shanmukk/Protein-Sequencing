@@ -5,6 +5,8 @@ Roll Number:
 """
 
 from dataclasses import replace
+
+from pandas import cut
 import hw6_protein_tests as test
 
 project = "Protein" # don't edit this
@@ -160,7 +162,20 @@ Parameters: 2D list of strs ; 2D list of strs ; float
 Returns: 2D list of values
 '''
 def findAminoAcidDifferences(proteinList1, proteinList2, cutoff):
-    return
+    d = []
+    x,y = aminoAcidDictionary(combineProteins(proteinList1)), aminoAcidDictionary(combineProteins(proteinList2))
+    for i,j in x.items():
+        x[i] = j/len(combineProteins(proteinList1))
+        if i not in y:
+            y[i] = 0
+    for i,j in y.items():
+        y[i] = j/len(combineProteins(proteinList2))
+        if i not in x:
+            x[i] = 0
+        if abs(x[i] - y[i]) > cutoff:
+            if i != 'Start' and i != 'Stop':
+                d.append([i, x[i], y[i]])
+    return d
 
 
 '''
