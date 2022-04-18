@@ -202,7 +202,7 @@ def testFindAminoAcidDifferences():
     result1 = findAminoAcidDifferences(set1, set2, 0.02) # 2% difference
     result1.sort()
     assert(len(result1) == 12)
-    print(result1)
+    #print(result1)
     assert((result1[0][0] == "Ala") and (0.057 < result1[0][1] < 0.058) and (0.087 < result1[0][2] < 0.088))
     assert((result1[1][0] == "Arg") and (0.076 < result1[1][1] < 0.077) and (0.054 < result1[1][2] < 0.055))
     assert(result1[11][0] == "Ser" and (0.123 < result1[11][1] < 0.124) and (0.087 < result1[11][2] < 0.088))
