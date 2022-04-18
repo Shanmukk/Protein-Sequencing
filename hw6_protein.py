@@ -121,8 +121,10 @@ def commonProteins(proteinList1, proteinList2):
     lst = []
     for i in proteinList1:
         if i in proteinList2:
-            lst.append(i)
+            if i not in lst:
+                lst.append(i)
     return lst
+ 
 
 
 '''
@@ -185,7 +187,20 @@ Parameters: 2D list of strs ; 2D list of values
 Returns: None
 '''
 def displayTextResults(commonalities, differences):
-    return
+    lst = sorted(commonalities)
+    print("The following proteins occurred in both DNA Sequences:")
+    for i in range(len(lst)):
+        for j in range(len(lst[i])):
+            if lst[i][j] == "Start" or lst[i][j] == "Stop":
+                continue
+            else:
+                print(lst[i][j], end=' ')
+        print()
+    print("The following amino acids occurred at very different rates in the two DNA sequences:")
+    for i in sorted(differences):
+        print(i[0],": ",round(i[1]*100, 2),"% in Seq1,",round(i[2]*100, 2),"% in Seq2")
+        print()
+    return 
 
 
 def runWeek2():
@@ -206,7 +221,13 @@ Parameters: 2D list of strs ; 2D list of strs
 Returns: list of strs
 '''
 def makeAminoAcidLabels(proteinList1, proteinList2):
-    return
+    lst = []
+    x = combineProteins(proteinList1), combineProteins(proteinList2)
+    for i in x:
+        for j in i:
+            if j not in lst:
+                lst.append(j)
+    return sorted(lst)
 
 
 '''
@@ -261,16 +282,16 @@ if __name__ == "__main__":
 
     ## Uncomment these for Week 2 ##
     
-    print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    '''print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     test.week2Tests()
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    runWeek2()
+    runWeek2()'''
     
 
     ## Uncomment these for Week 3 ##
-    """
+    
     print("\n" + "#"*15 + " WEEK 3 TESTS " +  "#" * 16 + "\n")
     test.week3Tests()
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     runFullProgram()
-    """
+    
